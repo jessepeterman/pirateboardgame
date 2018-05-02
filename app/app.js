@@ -1,7 +1,7 @@
 
-let currentSpace = 1;
-let rollNumber = 3;
-let currentPlayer = "Player 1";
+let currentSpace = 0;
+let currentPlayer = "player-1";
+let currentMove;
 
 const space1 = document.querySelector('.space1');
 const space2 = document.querySelector('.space2');
@@ -23,80 +23,37 @@ const space17 = document.querySelector('.space17');
 const space18 = document.querySelector('.space18');
 const space19 = document.querySelector('.space19');
 const space20 = document.querySelector('.space20');
+const diceDisplay = document.querySelector('.dice');
+const rollBtn = document.querySelector('.roll-btn');
 
-let spaces = {0:space1, 1:space2, 2:space3, 3:space4, 4:space5};
 
-// Define game state class
-class gameState{
-  constructor(space, roll, player, spaces){
-    space,
-    roll,
-    player,
-    spaces
-    // [
-    //   space1,
-    //   space2,
-    //   space3,
-    //   space4,
-    //   space5,
-    //   space6,
-    //   space7,
-    //   space8,
-    //   space9,
-    //   space10,
-    //   space11,
-    //   space12,
-    //   space13,
-    //   space13,
-    //   space14,
-    //   space15,
-    //   space16,
-    //   space17,
-    //   space18,
-    //   space19,
-    //   space20
-    // ]
-  }
+// Add roll button event listener
+rollBtn.addEventListener('click', function(){
 
-  movePlayer(){
-    console.log(`player moved from space ${this.space}, ${this.roll} spaces`);
-  }
-}
+  // Init game state
+  const turn = new gameState;
+  turn.space = currentSpace;
+  turn.roll = turn.createRandomNum();
+  turn.player = currentPlayer;
+  turn.spaces = [space1,space2,space3,space4,space5,space6,space7,space8,space9,space10,
+                space11,space12,space13,space13,space14,space15,space16,space17,space18,
+                space19,space20];
 
-// Init game state
-const turn = new gameState;
-turn.space = currentSpace;
-turn.roll = rollNumber;
-turn.player = currentPlayer;
-turn.spaces = [
-  space1,
-  space2,
-  space3,
-  space4,
-  space5,
-  space6,
-  space7,
-  space8,
-  space9,
-  space10,
-  space11,
-  space12,
-  space13,
-  space13,
-  space14,
-  space15,
-  space16,
-  space17,
-  space18,
-  space19,
-  space20
-];
+  // Print current turn details
+  console.log(turn);
+  // adjust move for 0-based indexing in spaces array
+  currentMove = turn.space+turn.roll;
 
-// adjust move for 0-based indexing in spaces array
-currentMove = turn.space+turn.roll-1;
+  // Clear player's current space, and assign new space to current space for next player
+  turn.clearCurrentSpace(currentSpace);
+  currentSpace = turn.space+turn.roll;
 
-turn.movePlayer(currentMove);
-console.log(turn);
-// console.log(turn.spaces[currentMove]);
+  // Set dice roll display (add animation & 3D dice)
+  setTimeout( () => diceDisplay.textContent = turn.roll, 500);
 
-turn.spaces[currentMove].classList.toggle('player-1');
+  // Move the player to next space
+  turn.movePlayer(currentMove);
+
+  // Switch to next player
+  console.log(turn.nextPlayer(currentPlayer));
+});

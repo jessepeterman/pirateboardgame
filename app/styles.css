@@ -46,6 +46,18 @@ h3 {
 
 }
 
+.dice{
+  background-color: red;
+  color: black;
+  width: 81.66px;
+  height: 98px;
+  /* display: table-cell; */
+  /* text-align: center; */
+  /* vertical-align: middle; */
+  font-family: fantasy;
+  font-size: 4rem;
+}
+
 img {
   background-color: white;
 }
