@@ -1,12 +1,13 @@
 // Define game state class
 class gameState{
-  constructor(space, lastSpace, nextSpace, roll, player, spaces){
+  constructor(space, lastSpace, nextSpace, roll, player, spaces, turn){
     space,
     lastSpace,
     nextSpace,
     roll,
     player,
-    spaces
+    spaces,
+    turn
   }
 
   createRandomNum(roll){
@@ -15,6 +16,9 @@ class gameState{
   }
 
   movePlayer(move){
+    if(move > 20){
+      move = 20;
+    }
     console.log(`player moved from space ${this.space}, ${this.roll} spaces`);
     this.spaces[move].classList.add(this.player);
   }
@@ -62,10 +66,11 @@ class gameState{
     }
 
     checkForWin(current, winning){
+      console.log(`current: ${current}, winning: ${winning}`);
       if(current >= winning){
-        setTimeout( () => alert(`${currentPlayer}, you win!`), 750);
-        this.spaces[20].classList.add(this.player);
         rollBtn.classList.add('btn-disabled');
+        setTimeout( () => alert(`${this.player}, you win!`), 750);
+        this.spaces[20].classList.add(this.player);
         return true;
       } else {
         return false;
@@ -77,7 +82,7 @@ class gameState{
         playerDisplay.style.background = "blue";
         playerDisplay.textContent = "It's Player 1's turn";
       } else if (currentPlayer === "player-2"){
-        playerDisplay.style.background = "green";
+        playerDisplay.style.background = "rgb(146,68,194)";
         playerDisplay.textContent = "It's Player 2's turn";
       }
     }

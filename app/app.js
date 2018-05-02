@@ -5,6 +5,8 @@ let currentPlayer = '';
 let numberOfPlayers = 2;
 let spaceTracker = [];
 let turnNumber = 0;
+let p1TurnNumber = 0;
+let p2TurnNumber = 0;
 winningSpace = 20;
 
 const space1 = document.querySelector('.space1');
@@ -40,9 +42,24 @@ rollBtn.addEventListener('click', function(){
 
   // Increment turn counter
   turnNumber++;
+
+  // if(p1TurnNumber = 0){
+  //   currentSpace = 0;
+  // } else if(p1turnNumber = 0){
+  //   currentSpace = 0;
+  // }
+
   if(currentPlayer === ''){
     currentPlayer = turn.generateFirstPlayer(currentPlayer);
   }
+
+  // if(currentPlayer === 'player-1'){
+  //   p1TurnNumber++;
+  // } else if(currentPlayer === 'player-2'){
+  //   p2TurnNumber++;
+  // }
+
+  console.log(`P1 turn#${p1TurnNumber}, P2 turn#${p2TurnNumber}`);
 
   turn.displayCurrentPlayer();
   // Clear last space
@@ -80,10 +97,12 @@ rollBtn.addEventListener('click', function(){
   setTimeout( () => turn.movePlayer(turn.nextSpace), 750);
 
   // Listen for a win
-turn.checkForWin(currentSpace, winningSpace);
-
-  // Switch to next player
+  if(turn.checkForWin(currentSpace, winningSpace)){
+    return;
+  } else {
+  // If no win, switch to next player
     currentPlayer = turn.nextPlayer(currentPlayer);
     // setTimeout( () => turn.displayCurrentPlayer(), 1500);
     turn.displayCurrentPlayer();
+  }
 });
