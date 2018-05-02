@@ -1,7 +1,10 @@
 
 let currentSpace = 0;
-let currentPlayer = "player-1";
 let currentMove;
+let currentPlayer = '';
+let numberOfPlayers = 2;
+let spaceTracker = [];
+let turnNumber = 0;
 
 const space1 = document.querySelector('.space1');
 const space2 = document.querySelector('.space2');
@@ -32,28 +35,47 @@ rollBtn.addEventListener('click', function(){
 
   // Init game state
   const turn = new gameState;
+
+  // Increment turn counter
+  turnNumber++;
+  if(currentPlayer === ''){
+    currentPlayer = turn.generateFirstPlayer(currentPlayer);
+  }
+
+  // Clear last space
+  spaceTracker.push(currentSpace);
+
+    // turn.clearLastSpace(currentSpace);
+
+  // Assign current turn variables
   turn.space = currentSpace;
   turn.roll = turn.createRandomNum();
+  turn.lastSpace = spaceTracker[turnNumber-2];
+  turn.nextSpace = turn.space+turn.roll;
   turn.player = currentPlayer;
+
   turn.spaces = [space1,space2,space3,space4,space5,space6,space7,space8,space9,space10,
                 space11,space12,space13,space13,space14,space15,space16,space17,space18,
                 space19,space20];
 
+  // Start board with correct player color
+  // turn.spaces[0].classList.add(currentPlayer);
+
   // Print current turn details
   console.log(turn);
-  // adjust move for 0-based indexing in spaces array
-  currentMove = turn.space+turn.roll;
 
   // Clear player's current space, and assign new space to current space for next player
-  turn.clearCurrentSpace(currentSpace);
+  setTimeout( () => turn.clearCurrentSpace(currentSpace), 200);
+  setTimeout( () => turn.clearLastSpace(turn.lastSpace), 500);
   currentSpace = turn.space+turn.roll;
 
+
   // Set dice roll display (add animation & 3D dice)
-  setTimeout( () => diceDisplay.textContent = turn.roll, 500);
+  setTimeout( () => diceDisplay.textContent = turn.roll, 100);
 
   // Move the player to next space
-  turn.movePlayer(currentMove);
+  setTimeout( () => turn.movePlayer(turn.nextSpace), 750);
 
   // Switch to next player
-  console.log(turn.nextPlayer(currentPlayer));
+  currentPlayer = turn.nextPlayer(currentPlayer);
 });

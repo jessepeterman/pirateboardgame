@@ -35,15 +35,17 @@ h3 {
 .game-board div{
   /* width: 100px;
   height: 100px; */
+  background-color: tan;
   border: solid 1px tan;
   border-radius: 10px;
   /* border-top-left-radius: 10px;
   border-bottom-left-radius: 10px; */
 }
 
-.space1 {
-
-
+.space1 span {
+  font-size: 1.5rem;
+  position: relative;
+  top: 2.2rem;
 }
 
 .dice{
@@ -62,16 +64,28 @@ img {
   background-color: white;
 }
 
-.player-1 {
+.game-board .player-1 {
   /* justify-content: center; */
-  background-color: tan;
-  background-image: url(assets/skull-bones.svg);
-  background-size: 90px 90px;
+  background-color: blue;
+  border-radius: 50px;
+  /* background-image: url(assets/skull-bones.svg); */
+  /* background-size: 90px 90px; */
   /* margin-left: auto;
   margin-right: auto; */
 }
+.game-board .player-2{
+  background-color: green;
+  border-radius: 50px;
+}
+
+.game-board .blank {
+  opacity: 0;
+}
 
 button {
+font-size: 3rem;
+background-color: gray;
+border-radius: 10px;
 grid-row: 1;
 grid-column: 9/10;
 }
