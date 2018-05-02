@@ -5,6 +5,7 @@ let currentPlayer = '';
 let numberOfPlayers = 2;
 let spaceTracker = [];
 let turnNumber = 0;
+winningSpace = 20;
 
 const space1 = document.querySelector('.space1');
 const space2 = document.querySelector('.space2');
@@ -76,6 +77,10 @@ rollBtn.addEventListener('click', function(){
   // Move the player to next space
   setTimeout( () => turn.movePlayer(turn.nextSpace), 750);
 
+  // Listen for a win
+turn.checkForWin(currentSpace, winningSpace);
+
   // Switch to next player
-  currentPlayer = turn.nextPlayer(currentPlayer);
+    currentPlayer = turn.nextPlayer(currentPlayer);
+
 });

@@ -61,4 +61,15 @@ class gameState{
       return player;
     }
 
+    checkForWin(current, winning){
+      if(current >= winning){
+        setTimeout( () => alert(`${currentPlayer}, you win!`), 750);
+        this.spaces[20].classList.add(this.player);
+        rollBtn.classList.add('btn-disabled');
+        return true;
+      } else {
+        return false;
+      }
+    }
+
 }

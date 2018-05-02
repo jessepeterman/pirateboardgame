@@ -83,9 +83,13 @@ img {
 }
 
 button {
-font-size: 3rem;
+font-size: 2.5rem;
 background-color: gray;
 border-radius: 10px;
 grid-row: 1;
 grid-column: 9/10;
+}
+.btn-disabled{
+  cursor: not-allowed;
+  pointer-events: none;
 }
