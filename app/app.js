@@ -29,6 +29,7 @@ const space19 = document.querySelector('.space19');
 const space20 = document.querySelector('.space20');
 const diceDisplay = document.querySelector('.dice');
 const rollBtn = document.querySelector('.roll-btn');
+const playerDisplay = document.getElementById('player-display');
 
 
 // Add roll button event listener
@@ -43,6 +44,7 @@ rollBtn.addEventListener('click', function(){
     currentPlayer = turn.generateFirstPlayer(currentPlayer);
   }
 
+  turn.displayCurrentPlayer();
   // Clear last space
   spaceTracker.push(currentSpace);
 
@@ -82,5 +84,6 @@ turn.checkForWin(currentSpace, winningSpace);
 
   // Switch to next player
     currentPlayer = turn.nextPlayer(currentPlayer);
-
+    // setTimeout( () => turn.displayCurrentPlayer(), 1500);
+    turn.displayCurrentPlayer();
 });

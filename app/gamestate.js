@@ -72,4 +72,14 @@ class gameState{
       }
     }
 
+    displayCurrentPlayer(){
+      if(currentPlayer === "player-1"){
+        playerDisplay.style.background = "blue";
+        playerDisplay.textContent = "It's Player 1's turn";
+      } else if (currentPlayer === "player-2"){
+        playerDisplay.style.background = "green";
+        playerDisplay.textContent = "It's Player 2's turn";
+      }
+    }
+
 }
