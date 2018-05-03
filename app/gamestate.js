@@ -87,4 +87,23 @@ class gameState{
       }
     }
 
+    iteratePlayerTurn(p1, p2){
+      if(currentPlayer === 'player-1'){
+        p1++;
+        console.log(`player 1 turn number: ${p1}`);
+      } else if(currentPlayer === 'player-2'){
+        console.log("it's player 2's turn...");
+        p2++;
+        console.log(`player 2 turn number: ${p2}`);
+      }
+    }
+
+    checkForFirstTurn(p1, p2, space){
+      if(p1 === 0){
+      return (space = 0);
+      } else if(p2 === 0){
+        return (space = 0);
+      }
+    }
+
 }

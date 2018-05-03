@@ -33,6 +33,14 @@ const diceDisplay = document.querySelector('.dice');
 const rollBtn = document.querySelector('.roll-btn');
 const playerDisplay = document.getElementById('player-display');
 
+// Game Loop to implement in future update
+// while (true)
+// {
+//   processInput(); // event handlers
+//   update();  // update player turn, gameState,
+//   render(); // display it on the screen/UI
+// }
+
 
 // Add roll button event listener
 rollBtn.addEventListener('click', function(){
@@ -42,24 +50,18 @@ rollBtn.addEventListener('click', function(){
 
   // Increment turn counter
   turnNumber++;
-
-  // if(p1TurnNumber = 0){
-  //   currentSpace = 0;
-  // } else if(p1turnNumber = 0){
-  //   currentSpace = 0;
-  // }
+  console.log(`Game turn talley: ${turnNumber}`);
 
   if(currentPlayer === ''){
     currentPlayer = turn.generateFirstPlayer(currentPlayer);
   }
 
-  // if(currentPlayer === 'player-1'){
-  //   p1TurnNumber++;
-  // } else if(currentPlayer === 'player-2'){
-  //   p2TurnNumber++;
-  // }
+  // check for player and assign player turn iterator
+  turn.iteratePlayerTurn();
 
-  console.log(`P1 turn#${p1TurnNumber}, P2 turn#${p2TurnNumber}`);
+  // currentSpace = turn.checkForFirstTurn(p1TurnNumber,p2TurnNumber);
+
+  console.log(`turn:` + turn.turn);
 
   turn.displayCurrentPlayer();
   // Clear last space
@@ -67,7 +69,7 @@ rollBtn.addEventListener('click', function(){
 
     // turn.clearLastSpace(currentSpace);
 
-  // Assign current turn variables
+  // Assign game state variables
   turn.space = currentSpace;
   turn.roll = turn.createRandomNum();
   turn.lastSpace = spaceTracker[turnNumber-2];

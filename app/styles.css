@@ -28,7 +28,7 @@ h3 {
 .game-board {
  display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-gap: 5px;
+  grid-gap: 0px;
   grid-auto-rows: minmax(100px, auto);
 }
 
@@ -40,11 +40,50 @@ h3 {
   background-repeat:  no-repeat;
   background-position: center;
   border: solid 1px tan;
-  border-radius: 10px;
+  border-radius: 50px;
   /* border-top-left-radius: 10px;
   border-bottom-left-radius: 10px; */
 
 }
+
+/* .space1{
+  position: relative;
+  top: 300px;
+  left: 5px;
+  transform: rotate(315deg);
+}
+.space2{
+  position: relative;
+  top: 235px;
+  left: -20px;
+  transform: rotate(316deg);
+
+}
+.space3{
+  position: relative;
+  top: 170px;
+  left: -45px;
+  transform: rotate(317deg);
+}
+.space4{
+  position: relative;
+
+  top: 105px;
+  left: -70px;
+  transform: rotate(318deg);
+}
+.space5{
+  position: relative;
+  top: 45px;
+  left: -90px;
+  transform: rotate(319deg);
+}
+.space6{
+  position: relative;
+  top: -15px;
+  left: -110px;
+  transform: rotate(319deg);
+} */
 
 .space1 span {
   font-size: 1.5rem;
@@ -52,11 +91,12 @@ h3 {
   top: 2.2rem;
 }
 
-.dice{
+div .dice{
   background-color: red;
   color: black;
   width: 81.66px;
   height: 98px;
+  border-radius: 10px;
   /* display: table-cell; */
   /* text-align: center; */
   /* vertical-align: middle; */
@@ -104,3 +144,13 @@ grid-column: 9/10;
   width: 300px;
   color: black;
 }
+
+/* .ship-graphic{
+  position: relative;
+  /* width: 200px; */
+  height: 200px;
+  top: -200px;
+  left: 50px;
+  background-image: url(assets/ship.svg);
+  background-repeat: no-repeat;
+} */
