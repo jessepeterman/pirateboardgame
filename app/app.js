@@ -91,6 +91,7 @@ function program(){
   turn.lastSpace = spaceTracker[turnNumber-2];
   turn.nextSpace = turn.space+turn.roll;
   turn.player = currentPlayer;
+  console.log(turn);
 
   console.log('turn.player' + turn.player);
   console.log('currentPlayer' + currentPlayer);
@@ -123,6 +124,8 @@ function program(){
   // console.log(`Game count: ${turnNumber} - ${p1TurnNumber} - ${p2TurnNumber}`);
   // console.log(turn);
 
+  console.log(`Current turn info:`);
+    console.log(turn);
   if(ui.checkForWin(currentSpace, winningSpace, spaceTracker[turnNumber-1], currentPlayer)){
 
   } else {
