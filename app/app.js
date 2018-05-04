@@ -7,7 +7,7 @@ let spaceTracker = [];
 let turnNumber = 0;
 let p1TurnNumber = 0;
 let p2TurnNumber = 0;
-winningSpace = 20;
+winningSpace = 19;
 
 // Game Loop to implement in future update
 // while (true)
@@ -58,8 +58,10 @@ function program(){
   turnNumber++;
 
   if(currentPlayer === ''){
-    currentPlayer = turn.generateFirstPlayer(currentPlayer);
+    currentPlayer = turn.generateFirstPlayer();
+    console.log('Current inside generating player:' + currentPlayer);
   }
+    console.log('Current after generating player:' + currentPlayer);
 
   // console.log(p1TurnNumber + " " + p2TurnNumber);
   // currentSpace = turn.checkForFirstTurn(p1TurnNumber, p1TurnNumber, currentSpace);
@@ -76,7 +78,8 @@ function program(){
     p2TurnNumber++;
   }
 
-  ui.displayCurrentPlayer();
+  console.log(currentPlayer, player1.isTurn, player2.isTurn);
+  ui.displayCurrentPlayer(currentPlayer);
 
   // Clear last space
   spaceTracker.push(currentSpace);
@@ -89,36 +92,46 @@ function program(){
   turn.nextSpace = turn.space+turn.roll;
   turn.player = currentPlayer;
 
+  console.log('turn.player' + turn.player);
+  console.log('currentPlayer' + currentPlayer);
+
+
   // Display current game game
   console.log(`Game count: ${turnNumber} - ${p1TurnNumber} - ${p2TurnNumber}`);
-  console.log(turn);
 
   // Start board with correct player color
 
   // Clear player's current space, and assign new space to current space for next player
-  setTimeout( () => ui.clearCurrentSpace(currentSpace, turn.player), 200);
-  // setTimeout( () => ui.clearLastSpace(turn.lastSpace, currentPlayer), );
-  // currentSpace = turn.space+turn.roll;
-  setTimeout( () => ui.clearLastSpace(spaceTracker[turnNumber-2], currentPlayer), );
-  currentSpace = turn.space+turn.roll;
+  // setTimeout( () => ui.clearCurrentSpace(currentSpace, currentPlayer), 200);
+  // setTimeout( () => ui.clearLastSpace(spaceTracker[turnNumber-2], currentPlayer), );
+  // ui.clearCurrentSpace(currentSpace, currentPlayer);
 
+  // Clear the last space current player was on before next move
+  ui.clearLastSpace(turn.lastSpace, currentPlayer);
+  currentSpace = turn.space+turn.roll;
 
   // Set dice roll display (add animation & 3D dice)
   ui.rollDisplay(turn.roll);
 
   // Move the player to next space
-  setTimeout( () => ui.movePlayer(turn.nextSpace, currentPlayer), 750);
+  console.log(`move: ${turn.nextSpace}, player: ${currentPlayer}`);
+    ui.movePlayer(turn.nextSpace, currentPlayer);
 
   console.log(spaceTracker);
   // Listen for a win
+  // console.log('winning turn details:');
+  // console.log(`Game count: ${turnNumber} - ${p1TurnNumber} - ${p2TurnNumber}`);
+  // console.log(turn);
+
   if(ui.checkForWin(currentSpace, winningSpace, spaceTracker[turnNumber-1], currentPlayer)){
+
   } else {
 
   // If no win, switch to next player
     currentPlayer = turn.nextPlayer(currentPlayer);
-
+    setTimeout( () => ui.displayCurrentPlayer(currentPlayer), 2000);
     // setTimeout( () => turn.displayCurrentPlayer(), 1500);
-    ui.displayCurrentPlayer(turn.player);
+    // ui.displayCurrentPlayer(turn.player);
   }
 // });
 }

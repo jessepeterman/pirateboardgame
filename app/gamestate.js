@@ -1,13 +1,13 @@
 // Define game state class
 class gameState{
-  constructor(space, lastSpace, nextSpace, roll, player, spaces, turn){
-    space,
-    lastSpace,
-    nextSpace,
-    roll,
-    player,
-    spaces,
-    turn
+  constructor(){
+    this.space,
+    this.lastSpace,
+    this.nextSpace,
+    this.roll,
+    this.player,
+    this.spaces,
+    this.turn
   }
 
   createRandomNum(roll){
@@ -23,15 +23,16 @@ class gameState{
       } else if(player === 'player-2'){
         player = 'player-1';
       }
-    } else {
-      turn.generateFirstPlayer();
     }
+    // } else {
+    //   turn.generateFirstPlayer();
+    // }
     return player;
   }
 
-  generateFirstPlayer(player){
+  generateFirstPlayer(){
     const randomPlayer = Math.floor(Math.random()*2+1);
-
+      let player;
       if(randomPlayer === 1){
         player = 'player-1';
       } else if(randomPlayer === 2){
