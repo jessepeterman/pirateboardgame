@@ -9,30 +9,6 @@ let p1TurnNumber = 0;
 let p2TurnNumber = 0;
 winningSpace = 20;
 
-const space1 = document.querySelector('.space1');
-const space2 = document.querySelector('.space2');
-const space3 = document.querySelector('.space3');
-const space4 = document.querySelector('.space4');
-const space5 = document.querySelector('.space5');
-const space6 = document.querySelector('.space6');
-const space7 = document.querySelector('.space7');
-const space8 = document.querySelector('.space8');
-const space9 = document.querySelector('.space9');
-const space10 = document.querySelector('.space10');
-const space11 = document.querySelector('.space11');
-const space12 = document.querySelector('.space12');
-const space13 = document.querySelector('.space13');
-const space14 = document.querySelector('.space14');
-const space15 = document.querySelector('.space15');
-const space16 = document.querySelector('.space16');
-const space17 = document.querySelector('.space17');
-const space18 = document.querySelector('.space18');
-const space19 = document.querySelector('.space19');
-const space20 = document.querySelector('.space20');
-const diceDisplay = document.querySelector('.dice');
-const rollBtn = document.querySelector('.roll-btn');
-const playerDisplay = document.getElementById('player-display');
-
 // Game Loop to implement in future update
 // while (true)
 // {
@@ -41,70 +17,108 @@ const playerDisplay = document.getElementById('player-display');
 //   render(); // display it on the screen/UI
 // }
 
+// Load on dom Load
+// document.addEventListener('DOMContentLoaded', loadPlayers);
+//
+// player1 = loadPlayer1();
+//
+// player1.turnNumber++;
+// player1.turnNumber++;
+// player1.turnNumber++;
+//
+//
+// console.log(player1);
+
 
 // Add roll button event listener
-rollBtn.addEventListener('click', function(){
+
+document.getElementsByClassName('roll-btn')[0].addEventListener('click', function(){
+  program();
+});
+
+var spaceDivs = document.getElementsByClassName("space");
+
+for(var i = 0; i < spaceDivs.length; i++){
+   //do something to each div like
+}
+
+
+function program(){
+  const ui = new UI;
+
+  ui.spaces = spaceDivs;
+
+  player1 = loadPlayer1();
+  player2 = loadPlayer2();
 
   // Init game state
   const turn = new gameState;
 
   // Increment turn counter
   turnNumber++;
-  console.log(`Game turn talley: ${turnNumber}`);
 
   if(currentPlayer === ''){
     currentPlayer = turn.generateFirstPlayer(currentPlayer);
   }
 
-  // check for player and assign player turn iterator
-  turn.iteratePlayerTurn();
+  // console.log(p1TurnNumber + " " + p2TurnNumber);
+  // currentSpace = turn.checkForFirstTurn(p1TurnNumber, p1TurnNumber, currentSpace);
+  // console.log(`Current Space: ${currentSpace}`);
 
-  // currentSpace = turn.checkForFirstTurn(p1TurnNumber,p2TurnNumber);
+  if(player1.name === currentPlayer){
+    player2.isTurn = false;
+    player1.isTurn = true;
+    p1TurnNumber++;
+  }
+  if(player2.name === currentPlayer){
+    player1.isTurn = false;
+    player2.isTurn = true;
+    p2TurnNumber++;
+  }
 
-  console.log(`turn:` + turn.turn);
+  ui.displayCurrentPlayer();
 
-  turn.displayCurrentPlayer();
   // Clear last space
   spaceTracker.push(currentSpace);
 
-    // turn.clearLastSpace(currentSpace);
-
   // Assign game state variables
-  turn.space = currentSpace;
+
+  turn.space = spaceTracker[turnNumber -1];
   turn.roll = turn.createRandomNum();
   turn.lastSpace = spaceTracker[turnNumber-2];
   turn.nextSpace = turn.space+turn.roll;
   turn.player = currentPlayer;
 
-  turn.spaces = [space1,space2,space3,space4,space5,space6,space7,space8,space9,space10,
-                space11,space12,space13,space13,space14,space15,space16,space17,space18,
-                space19,space20];
-
-  // Start board with correct player color
-  // turn.spaces[0].classList.add(currentPlayer);
-
-  // Print current turn details
+  // Display current game game
+  console.log(`Game count: ${turnNumber} - ${p1TurnNumber} - ${p2TurnNumber}`);
   console.log(turn);
 
+  // Start board with correct player color
+
   // Clear player's current space, and assign new space to current space for next player
-  setTimeout( () => turn.clearCurrentSpace(currentSpace), 200);
-  setTimeout( () => turn.clearLastSpace(turn.lastSpace), 500);
+  setTimeout( () => ui.clearCurrentSpace(currentSpace, turn.player), 200);
+  // setTimeout( () => ui.clearLastSpace(turn.lastSpace, currentPlayer), );
+  // currentSpace = turn.space+turn.roll;
+  setTimeout( () => ui.clearLastSpace(spaceTracker[turnNumber-2], currentPlayer), );
   currentSpace = turn.space+turn.roll;
 
 
   // Set dice roll display (add animation & 3D dice)
-  setTimeout( () => diceDisplay.textContent = turn.roll, 100);
+  ui.rollDisplay(turn.roll);
 
   // Move the player to next space
-  setTimeout( () => turn.movePlayer(turn.nextSpace), 750);
+  setTimeout( () => ui.movePlayer(turn.nextSpace, currentPlayer), 750);
 
+  console.log(spaceTracker);
   // Listen for a win
-  if(turn.checkForWin(currentSpace, winningSpace)){
-    return;
+  if(ui.checkForWin(currentSpace, winningSpace, spaceTracker[turnNumber-1], currentPlayer)){
   } else {
+
   // If no win, switch to next player
     currentPlayer = turn.nextPlayer(currentPlayer);
+
     // setTimeout( () => turn.displayCurrentPlayer(), 1500);
-    turn.displayCurrentPlayer();
+    ui.displayCurrentPlayer(turn.player);
   }
-});
+// });
+}
